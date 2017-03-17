@@ -95,39 +95,26 @@ public class WordPlay {
     }
 
     public String encryptTwoKeys(String input, int key1, int key2) {
-
-        StringBuilder encrypted = new StringBuilder(input);
-        // Keep track of key1 or key2
-        int currentKey = 0;
-
-        String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        String lowerAlphabet = alphabet.toLowerCase();
-        String shiftedAlphabet = alphabet.substring(currentKey) + alphabet.substring(0, currentKey);
-        String lowerShifted = lowerAlphabet.substring(currentKey) + alphabet.substring(0, currentKey);
-        for(int i = 0; i < encrypted.length(); i++) {
-            char currentChar = encrypted.charAt(i);
-            int index = alphabet.indexOf(currentChar);
-            int lowerIndex = lowerAlphabet.indexOf(currentChar);
-            if(index != -1 && i % 2 == 0) {
-                currentKey = key2;
-                char newChar = shiftedAlphabet.charAt(index);
-                encrypted.setCharAt(i, newChar);
+        StringBuilder newEncryption = new StringBuilder(input);
+        String encryptKey1 = encryptTwo(input, key1);
+        String encryptKey2 = encryptTwo(input, key2);
+        for(int i = 0; i < newEncryption.length(); i++) {
+            char currentChar = newEncryption.charAt(i);
+//            int index = alphabet.indexOf(currentChar);
+//            int lowerIndex = lowerAlphabet.indexOf(currentChar);
+            int index = encryptKey1.charAt(i);
+            if(index != -1) {
+                if (i % 2 != 0) {
+                    System.out.println(index);
+                    newEncryption.setCharAt(i, encryptKey2.charAt(i));
+                } else {
+                    System.out.println(index);
+                    newEncryption.setCharAt(i, encryptKey1.charAt(i));
+                }
             }
-            if(index != -1 && i % 2 != 0) {
-                currentKey = key1;
-            }
-
-            if(lowerIndex != -1 && i % 2 == 0) {
-                currentKey = key2;
-            }
-
-            if(lowerIndex != -1 && i % 2 != 0) {
-                currentKey = key1;
-            }
-
         }
+        return newEncryption.toString();
 
-        return input;
     }
 
 }

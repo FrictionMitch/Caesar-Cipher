@@ -8,6 +8,7 @@ public class Main {
 //        wordPlay.testReplaceVowels();
 //        wordPlay.testEmphasize();
 //        wordPlay.testEncryptTwo();
-        wordPlay.testCaesar();
+//        wordPlay.testCaesar();
+        wordPlay.encryptTwoKeys("First Legion", 23, 17);
     }
 }
