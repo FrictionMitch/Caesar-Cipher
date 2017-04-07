@@ -38,17 +38,10 @@ public class WordPlayTest extends TestCase {
         assertEquals(wordPlay.encryptTwo("First Legion", 17), "Wzijk Cvxzfe");
     }
 
-    //  v z e
-    // I d l
-
-//    Ivdzle
-//    Ivxzfk
-
     @Test
     public void testEncryptTwoKeys() throws Exception {
         WordPlay wordPlay = new WordPlay();
-//        assertEquals("Czojq Ivdzle", (wordPlay.encryptTwoKeys("First Legion", 23, 17)));
+        assertEquals("Czojq Ivdzle", (wordPlay.encryptTwoKeys("First Legion", 23, 17)));
         assertEquals("Czojq", (wordPlay.encryptTwoKeys("First", 23, 17)));
-        assertEquals("Ivdzle", (wordPlay.encryptTwoKeys("Legion", 23, 17)));
     }
 }

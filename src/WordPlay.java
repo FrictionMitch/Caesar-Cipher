@@ -36,7 +36,7 @@ public class WordPlay {
         StringBuilder stringBuilder = new StringBuilder(phrase);
         for(int i = 0; i < stringBuilder.length(); i++) {
             char newChar = stringBuilder.charAt(i);
-            if(Character.toUpperCase(newChar) == ch || Character.toLowerCase(newChar) == ch) {
+            if(Character.toUpperCase(newChar) == Character.toUpperCase(ch)) {
                 if(i % 2 == 0) {
                     stringBuilder.setCharAt(i, '*');
                 } else {
@@ -50,6 +50,32 @@ public class WordPlay {
 
     public void testEmphasize() {
         System.out.println(emphasize("Mary Bella Abracadabra", 'a'));
+    }
+    public String encrypt(String input, int key) {
+        //Make a StringBuilder with message (encrypted)
+        StringBuilder encrypted = new StringBuilder(input);
+        //Write down the alphabet
+        String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        //Compute the shifted alphabet
+        String shiftedAlphabet = alphabet.substring(key)+
+                alphabet.substring(0,key);
+        //Count from 0 to < length of encrypted, (call it i)
+        for(int i = 0; i < encrypted.length(); i++) {
+            //Look at the ith character of encrypted (call it currChar)
+            char currChar = encrypted.charAt(i);
+            //Find the index of currChar in the alphabet (call it idx)
+            int idx = alphabet.indexOf(currChar);
+            //If currChar is in the alphabet
+            if(idx != -1){
+                //Get the idxth character of shiftedAlphabet (newChar)
+                char newChar = shiftedAlphabet.charAt(idx);
+                //Replace the ith character of encrypted with newChar
+                encrypted.setCharAt(i, newChar);
+            }
+            //Otherwise: do nothing
+        }
+        //Your answer is the String inside of encrypted
+        return encrypted.toString();
     }
 
     public String encryptTwo(String input, int key) {
@@ -81,16 +107,16 @@ public class WordPlay {
 
     public void testEncryptTwo(){
 //        System.out.println("CFOPQ IBDFLK XQQXZH BXPQ CIXKH!");
-        System.out.println(encryptTwo("FIRST LEGION ATTACK EAST FLANK!", 23));
-        System.out.println(encryptTwo("First Legion Attack East Flank!", 23));
+        System.out.println(encrypt("FIRST LEGION ATTACK EAST FLANK!", 23));
+        System.out.println(encrypt("First Legion Attack East Flank!", 23));
     }
 
     public void testCaesar() {
 //        FileResource fr = new FileResource();
 //        String message = fr.asString();
-        String message = "First Legion";
-        int key = 17;
-        String encrypted = encryptTwo(message, key);
+        String message = "Top ncmy qkff vi vguv vbg ycpx";
+        int key = 6;
+        String encrypted = encrypt(message.toUpperCase(), key);
         System.out.println("The key is " + key + " " + encrypted);
     }
 
@@ -99,19 +125,26 @@ public class WordPlay {
         String encryptKey1 = encryptTwo(input, key1);
         String encryptKey2 = encryptTwo(input, key2);
         for(int i = 0; i < newEncryption.length(); i++) {
-            char currentChar = newEncryption.charAt(i);
+            char key1Char = encryptKey1.charAt(i);
+            char key2Char = encryptKey2.charAt(i);
+            if(i % 2 == 0) {
+                newEncryption.setCharAt(i, key1Char);
+            } else {
+                newEncryption.setCharAt(i, key2Char);
+            }
+
 //            int index = alphabet.indexOf(currentChar);
 //            int lowerIndex = lowerAlphabet.indexOf(currentChar);
-            int index = encryptKey1.charAt(i);
-            if(index != -1) {
-                if (i % 2 != 0) {
-                    System.out.println(index);
-                    newEncryption.setCharAt(i, encryptKey2.charAt(i));
-                } else {
-                    System.out.println(index);
-                    newEncryption.setCharAt(i, encryptKey1.charAt(i));
-                }
-            }
+//            int index = newEncryption.charAt(i);
+//            if(index != -1) {
+//                if (index % 2 == 0) {
+//                    System.out.println(index);
+//                    newEncryption.setCharAt(i, encryptKey1.charAt(i));
+//                } else {
+//                    System.out.println(index);
+//                    newEncryption.setCharAt(i, encryptKey2.charAt(i));
+//                }
+//            }
         }
         return newEncryption.toString();
 
